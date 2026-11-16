@@ -1,0 +1,1314 @@
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#071d35">
+    <meta name="description" content="Website Information and Technology Center (ITC) SMA Negeri 1 Balige.">
+
+    <title>ITC | SMA Negeri 1 Balige</title>
+
+    <link rel="stylesheet" href="ITC.css?v=94">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <script src="ITC.js?v=71" defer></script>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container nav-wrap">
+
+            <a class="brand" href="#home" aria-label="ITC Beranda">
+                <span class="brand-icon">
+                    <img src="LOGO ITC.png" alt="ITC">
+                </span>
+            </a>
+
+            <button type="button" class="menu-btn" id="menuBtn" aria-label="Buka navigasi" aria-controls="navbar" aria-expanded="false">
+                <span class="menu-icon" aria-hidden="true"></span>
+            </button>
+
+            <nav class="navbar" id="navbar" aria-label="Navigasi utama">
+                <a class="nav-link active" href="#home">Beranda</a>
+                <a class="nav-link" href="#profil">Profil</a>
+                <a class="nav-link" href="#anggota">Anggota</a>
+                <a class="nav-link" href="#alumni">Alumni</a>
+                <a class="nav-link" href="#program">Program Kerja</a>
+                <a class="nav-link" href="#galeri">Galeri</a>
+                <a class="nav-link" href="#pendaftaran">Pendaftaran</a>
+            </nav>
+
+            <div class="search-box" role="search" aria-label="Cari program kerja">
+                <button type="button" class="program-search-submit" id="programSearchSubmit" aria-label="Cari program"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></button>
+                <input id="searchInput" type="search" placeholder="Cari Program..." aria-label="Cari Program" aria-autocomplete="list" aria-controls="programSearchResults" aria-expanded="false">
+                <div class="program-search-results" id="programSearchResults" role="listbox" aria-label="Hasil pencarian program" hidden></div>
+            </div>
+
+            <button type="button" class="admin-login-trigger" id="adminLoginOpen">
+                <i class="fa-solid fa-user-shield" aria-hidden="true"></i>
+                <span>Login Admin</span>
+            </button>
+
+        </div>
+    </header>
+
+    <button type="button" class="admin-sidebar-toggle" id="adminSidebarToggle" aria-label="Buka menu pengelola" aria-controls="adminToolbar" aria-expanded="false" hidden>
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="admin-sidebar-backdrop" id="adminSidebarBackdrop" aria-label="Tutup menu pengelola" hidden></button>
+    <aside class="admin-toolbar" id="adminToolbar" hidden aria-label="Pengelolaan website">
+        <a class="admin-sidebar-brand" href="#home"><img src="LOGO ITC.png" alt=""><span><strong>ITC</strong><small>PANEL PENGELOLA</small></span></a>
+        <div class="admin-sidebar-profile">
+            <label class="admin-avatar" id="adminAvatar" title="Klik untuk mengubah foto profil">
+                <span id="adminAvatarFallback">IT</span>
+                <input type="file" id="adminProfilePhotoInput" accept="image/jpeg,image/png" aria-label="Unggah foto profil">
+            </label>
+            <span class="admin-profile-copy"><strong id="adminProfileName">Administrator</strong><small id="adminProfileRole">Admin</small><small id="adminProfileEmail"></small></span>
+        </div>
+        <div class="admin-sidebar-search">
+            <label class="admin-sidebar-search-label" for="searchInput">Cari Program</label>
+            <div id="adminSearchSlot"></div>
+        </div>
+        <p class="admin-sidebar-heading">MENU PENGELOLAAN</p>
+        <nav class="admin-sidebar-nav" aria-label="Menu pengelola">
+            <a class="admin-sidebar-link" href="#home"><i class="fa-solid fa-house"></i>Beranda</a>
+            <button type="button" class="admin-sidebar-link admin-only" id="openRegistrationsWorkspaceBtn"><i class="fa-solid fa-inbox"></i>Data pendaftar</button>
+            <button type="button" class="admin-sidebar-link admin-only" id="manageRegistrationWindowBtn"><i class="fa-regular fa-calendar"></i>Masa pendaftaran</button>
+            <a class="admin-sidebar-link admin-only" id="openProgramWorkspaceBtn" href="#program" aria-controls="program"><i class="fa-solid fa-layer-group"></i>Program kerja</a>
+            <a class="admin-sidebar-link admin-only" id="openGalleryWorkspaceBtn" href="#galeri" aria-controls="galeri"><i class="fa-regular fa-images"></i>Galeri</a>
+            <a class="admin-sidebar-link super-admin-only" id="openMembersWorkspaceBtn" href="#anggota" aria-controls="anggota"><i class="fa-solid fa-users"></i>Data anggota</a>
+            <a class="admin-sidebar-link super-admin-only" id="openAlumniWorkspaceBtn" href="#alumni" aria-controls="alumni"><i class="fa-solid fa-user-graduate"></i>Data alumni</a>
+            <button type="button" class="admin-sidebar-link super-admin-only" id="editPageContentBtn" aria-controls="pageContentEditorPanel" aria-expanded="false"><i class="fa-solid fa-pen-to-square"></i>Edit teks halaman</button>
+            <button type="button" class="admin-sidebar-link super-admin-only" id="manageHomeBackgroundBtn" aria-controls="homeBackgroundAdminPanel" aria-expanded="false"><i class="fa-regular fa-image"></i>Foto latar Beranda</button>
+            <button type="button" class="admin-sidebar-link super-admin-only" id="manageAdminAccountsBtn" aria-controls="adminAccountsPanel" aria-expanded="false"><i class="fa-solid fa-users-gear"></i>Kelola akun admin</button>
+            <button type="button" class="admin-sidebar-link super-admin-only" id="manageSystemStatusBtn" aria-controls="systemStatusPanel" aria-expanded="false"><i class="fa-solid fa-heart-pulse"></i>Status sistem</button>
+        </nav>
+        <div class="admin-sidebar-footer">
+            <p><i class="fa-solid fa-lock" aria-hidden="true"></i> <span id="adminRoleLabel">Mode admin aktif</span></p>
+            <button type="button" class="admin-sidebar-link" id="adminLogoutBtn"><i class="fa-solid fa-right-from-bracket"></i>Keluar</button>
+        </div>
+        <p class="admin-toolbar-message" id="adminStatusMessage" role="status" aria-live="polite"></p>
+        <section class="home-background-admin super-admin-only" id="homeBackgroundAdminPanel" hidden aria-labelledby="homeBackgroundAdminTitle">
+            <div class="home-background-admin-heading">
+                <div>
+                    <h2 id="homeBackgroundAdminTitle">Foto Latar Beranda</h2>
+                    <p>Unggah foto, lalu aktifkan foto yang ingin dimasukkan ke rotasi latar Beranda.</p>
+                </div>
+                <button type="button" class="btn-secondary" id="closeHomeBackgroundAdmin"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Kembali</button>
+            </div>
+            <form id="homeBackgroundUploadForm" class="home-background-upload-form">
+                <label for="homeBackgroundFile">Tambah foto latar (JPG, PNG, atau WebP; maksimal 10 MB)</label>
+                <input type="file" id="homeBackgroundFile" name="photo" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" required>
+                <button type="submit" class="btn-primary" id="uploadHomeBackgroundBtn">Unggah Foto</button>
+            </form>
+            <p class="home-background-admin-status" id="homeBackgroundAdminStatus" role="status" aria-live="polite"></p>
+            <div class="home-background-admin-list" id="homeBackgroundAdminList"></div>
+        </section>
+        <section class="admin-accounts-panel super-admin-only" id="adminAccountsPanel" hidden aria-labelledby="adminAccountsTitle">
+            <div class="home-background-admin-heading">
+                <div>
+                    <h2 id="adminAccountsTitle">Kelola Akun Admin</h2>
+                    <p>Semua super admin dapat mengubah akun, role, dan status akses. Akun yang dinonaktifkan tetap tersimpan di database.</p>
+                </div>
+                <button type="button" class="btn-secondary" id="closeAdminAccounts"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Kembali</button>
+            </div>
+            <form id="createAdminForm" class="create-admin-form">
+                <label for="newAdminName">Nama</label>
+                <input id="newAdminName" name="name" type="text" maxlength="100" required>
+                <label for="newAdminEmail">Email</label>
+                <input id="newAdminEmail" name="email" type="email" maxlength="150" required>
+                <label for="newAdminPassword">Kata sandi sementara (minimal 8 karakter)</label>
+                <input id="newAdminPassword" name="password" type="password" minlength="8" maxlength="72" autocomplete="new-password" required>
+                <div class="create-admin-role-field" id="newAdminRoleField" hidden>
+                    <label for="newAdminRole">Hak akses akun</label>
+                    <select id="newAdminRole" name="role">
+                        <option value="admin">Admin</option>
+                        <option value="super_admin">Super admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary" id="createAdminSubmit">Buat akun admin</button>
+            </form>
+            <form id="editAdminForm" class="create-admin-form edit-admin-form" hidden>
+                <input id="editAdminId" name="id" type="hidden">
+                <label for="editAdminName">Nama akun</label>
+                <input id="editAdminName" name="name" type="text" maxlength="100" required>
+                <label for="editAdminEmail">Email akun</label>
+                <input id="editAdminEmail" name="email" type="email" maxlength="150" required>
+                <label for="editAdminPassword">Kata sandi baru (kosongkan jika tidak diganti)</label>
+                <input id="editAdminPassword" name="password" type="password" minlength="8" maxlength="72" autocomplete="new-password">
+                <label for="editAdminRole">Hak akses akun</label>
+                <select id="editAdminRole" name="role" required>
+                    <option value="admin">Admin</option>
+                    <option value="super_admin">Super admin</option>
+                </select>
+                <button type="submit" class="btn-primary" id="saveAdminEditBtn">Simpan perubahan akun</button>
+                <button type="button" class="btn-secondary" id="cancelAdminEditBtn">Batal edit</button>
+            </form>
+            <p class="home-background-admin-status" id="adminAccountsStatus" role="status" aria-live="polite"></p>
+            <div class="admin-accounts-list" id="adminAccountsList"></div>
+        </section>
+        <section class="system-status-panel super-admin-only" id="systemStatusPanel" hidden aria-labelledby="systemStatusTitle">
+            <div class="home-background-admin-heading">
+                <div>
+                    <h2 id="systemStatusTitle">Status sistem</h2>
+                    <p>Ringkasan database, jumlah data, file unggahan, dan kapasitas penyimpanan server.</p>
+                </div>
+                <div class="system-status-actions">
+                    <button type="button" class="btn-secondary" id="refreshSystemStatusBtn">Perbarui</button>
+                    <button type="button" class="btn-secondary" id="closeSystemStatusBtn"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Kembali</button>
+                </div>
+            </div>
+            <div class="system-status-grid">
+                <article class="system-status-card">
+                    <span>Database</span>
+                    <strong id="systemDatabaseStatus">Memuat...</strong>
+                    <small id="systemDatabaseDescription">Koneksi database aplikasi</small>
+                    <small id="systemDatabaseVersion"></small>
+                </article>
+                <article class="system-status-card">
+                    <span>Total unggahan</span>
+                    <strong id="systemUploadUsed">Memuat...</strong>
+                    <small id="systemUploadFileCount">Jumlah file yang dikelola</small>
+                </article>
+                <article class="system-status-card">
+                    <span>Ruang tersedia</span>
+                    <strong id="systemStorageFree">Memuat...</strong>
+                    <small id="systemStorageTotal">Kapasitas penyimpanan</small>
+                </article>
+                <article class="system-status-card">
+                    <span>Total data database</span>
+                    <strong id="systemRecordTotal">Memuat...</strong>
+                    <small>Jumlah baris pada tabel aplikasi</small>
+                </article>
+            </div>
+            <div class="system-status-charts">
+                <section class="system-status-chart-card" aria-labelledby="systemStorageChartTitle">
+                    <h3 id="systemStorageChartTitle">Kesehatan kapasitas disk server</h3>
+                    <p>Perbandingan ruang disk terpakai dan ruang yang masih tersedia.</p>
+                    <div class="system-status-storage-chart-layout">
+                        <div class="system-status-donut" id="systemStorageDonut" role="img" aria-label="Diagram penggunaan disk server">
+                            <div><strong id="systemStoragePercent">—%</strong><span>terpakai</span></div>
+                        </div>
+                        <div class="system-status-chart-legend">
+                            <div><span class="system-status-legend-dot used"></span><span>Terpakai</span><strong id="systemStorageUsedLegend">Memuat...</strong></div>
+                            <div><span class="system-status-legend-dot free"></span><span>Tersedia</span><strong id="systemStorageFreeLegend">Memuat...</strong></div>
+                        </div>
+                    </div>
+                </section>
+                <section class="system-status-chart-card" aria-labelledby="systemRecordsChartTitle">
+                    <h3 id="systemRecordsChartTitle">Perbandingan jumlah data</h3>
+                    <p>Diagram garis menunjukkan jumlah baris pada setiap tabel aplikasi.</p>
+                    <div class="system-status-record-chart" id="systemRecordChart" role="list"></div>
+                </section>
+            </div>
+            <section class="system-status-details" aria-labelledby="systemRecordStatsTitle">
+                <h3 id="systemRecordStatsTitle">Statistik data database</h3>
+                <div class="system-status-table-wrap">
+                    <table class="system-status-table">
+                        <thead><tr><th>Bagian</th><th>Jumlah data</th><th>Ukuran indeks & data</th><th>Status</th></tr></thead>
+                        <tbody id="systemRecordStats"></tbody>
+                    </table>
+                </div>
+            </section>
+            <section class="system-status-details" aria-labelledby="systemUploadStatsTitle">
+                <h3 id="systemUploadStatsTitle">Statistik folder unggahan</h3>
+                <div class="system-status-table-wrap">
+                    <table class="system-status-table">
+                        <thead><tr><th>Folder</th><th>Jumlah file</th><th>Total ukuran</th><th>Status</th></tr></thead>
+                        <tbody id="systemUploadBreakdown"></tbody>
+                    </table>
+                </div>
+            </section>
+            <p class="system-status-runtime" id="systemRuntimeInfo">Informasi runtime server</p>
+            <p class="home-background-admin-status" id="systemStatusMessage" role="status" aria-live="polite"></p>
+        </section>
+        <section class="registration-window-panel admin-only" id="registrationWindowPanel" hidden aria-labelledby="registrationWindowTitle">
+            <div class="home-background-admin-heading">
+                <div>
+                    <h2 id="registrationWindowTitle">Pengaturan masa penerimaan anggota</h2>
+                    <p>Buka atau tutup formulir pendaftaran anggota. Pengaturan tersimpan di database.</p>
+                </div>
+                <button type="button" class="btn-secondary" id="closeRegistrationWindowBtn"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Kembali</button>
+            </div>
+            <div class="registration-window-control">
+                <div>
+                    <span>Status pendaftaran</span>
+                    <strong id="registrationWindowStatus">Memuat...</strong>
+                </div>
+                <button type="button" class="btn-primary" id="toggleRegistrationWindowBtn">Memuat...</button>
+            </div>
+            <p class="home-background-admin-status" id="registrationWindowAdminMessage" role="status" aria-live="polite"></p>
+        </section>
+        <section class="page-content-editor super-admin-only" id="pageContentEditorPanel" hidden aria-labelledby="pageContentEditorTitle">
+            <div class="page-content-editor-heading">
+                <div>
+                    <span class="eyebrow">PENGELOLAAN WEBSITE</span>
+                    <h2 id="pageContentEditorTitle">Edit teks halaman</h2>
+                    <p>Ubah teks pada bagian halaman, lalu simpan agar perubahan diterapkan dan tersimpan ke database.</p>
+                </div>
+                <div class="page-content-editor-actions">
+                    <button type="button" class="btn-secondary" id="cancelPageContentBtn"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Batal</button>
+                    <button type="button" class="btn-primary" id="savePageContentBtn"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Simpan perubahan</button>
+                </div>
+            </div>
+            <p class="page-content-editor-status" id="pageContentEditorStatus" role="status" aria-live="polite"></p>
+            <div class="page-content-symbols" id="pageContentSymbolBar" role="group" aria-label="Tanda cepat untuk teks">
+                <span>Tanda cepat</span>
+                <button type="button" data-page-symbol="+">+</button>
+                <button type="button" data-page-symbol="-">-</button>
+                <button type="button" data-page-symbol="&lt;">&lt;</button>
+                <button type="button" data-page-symbol="&gt;">&gt;</button>
+                <button type="button" data-page-symbol="?">?</button>
+                <button type="button" data-page-symbol="!">!</button>
+                <button type="button" data-page-symbol="@">@</button>
+                <button type="button" data-page-symbol="#">#</button>
+                <button type="button" data-page-symbol="%">%</button>
+                <button type="button" data-page-symbol="&amp;">&amp;</button>
+                <button type="button" data-page-symbol="*">*</button>
+                <button type="button" data-page-symbol=":">:</button>
+                <button type="button" data-page-symbol=";">;</button>
+                <button type="button" data-page-symbol="=">=</button>
+                <button type="button" data-page-symbol="~">~</button>
+            </div>
+            <div class="page-content-editor-fields" id="pageContentEditorFields"></div>
+        </section>
+        <section class="registrations-workspace admin-only" id="registrationsWorkspacePanel" hidden aria-labelledby="registrationsWorkspaceTitle">
+            <div class="registrations-workspace-heading">
+                <div>
+                    <span class="eyebrow">PENGELOLAAN ANGGOTA</span>
+                    <h2 id="registrationsWorkspaceTitle">Data pendaftar</h2>
+                    <p>Daftar pendaftaran yang masuk melalui formulir website.</p>
+                </div>
+                <div class="registrations-workspace-actions">
+                    <button type="button" class="btn-secondary" id="refreshRegistrationsWorkspaceBtn"><i class="fa-solid fa-rotate" aria-hidden="true"></i> Muat ulang</button>
+                    <button type="button" class="btn-secondary" id="closeRegistrationsWorkspaceBtn"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Kembali</button>
+                </div>
+            </div>
+            <p id="registrationsWorkspaceStatus" class="registrations-admin-status" role="status" aria-live="polite"></p>
+            <div class="registrations-table-wrap registrations-workspace-table-wrap">
+                <table class="registrations-table">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Kelas</th>
+                            <th>Nomor Telepon</th>
+                            <th>Bidang minat</th>
+                            <th>Alasan bergabung</th>
+                            <th>Tanggal daftar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registrationsWorkspaceTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </aside>
+
+    <main>
+
+        <div class="home-hero-stats">
+        <div class="home-background-slides" id="homeBackgroundSlides" aria-hidden="true">
+            <span class="home-background-slide active" data-background-image="12.JPG" style="background-image: linear-gradient(rgba(4, 20, 39, 0.78), rgba(4, 20, 39, 0.78)), url('12.JPG')"></span>
+            <span class="home-background-slide" data-background-image="13.jpeg" style="background-image: linear-gradient(rgba(4, 20, 39, 0.78), rgba(4, 20, 39, 0.78)), url('13.jpeg')"></span>
+            <span class="home-background-slide" data-background-image="14.jpeg" style="background-image: linear-gradient(rgba(4, 20, 39, 0.78), rgba(4, 20, 39, 0.78)), url('14.jpeg')"></span>
+        </div>
+        <section class="hero" id="home">
+            <div class="hero-shade"></div>
+
+            <div class="container hero-inner">
+
+                <div class="hero-copy">
+                    <span class="eyebrow hero-eyebrow">
+                        <i class="fa-solid fa-circle-nodes"></i>
+                        <span>INFORMATION AND TECHNOLOGY CENTER</span>
+                    </span>
+
+                    <h1>
+                        <span>Membangun Ide</span> <br>
+                        <span class="gradient-text">Menciptakan Inovasi</span>
+                    </h1>
+
+                    <p>
+                        Selamat datang di website ITC SMA Negeri 1 Balige.
+                        Ruang untuk berkolaborasi, mengembangkan kreativitas
+                        digital, dan menghadirkan informasi sekolah melalui teknologi.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#anggota">
+                            Kenali ITC
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                        <a class="btn btn-outline" href="#program">
+                            Lihat Program Kerja
+                        </a>
+                    </div>
+
+                    <div class="hero-note">
+                        <i class="fa-solid fa-circle-check"></i>
+                        Kreativitas, teknologi, dan kolaborasi.
+                    </div>
+                </div>
+
+                <div class="hero-art" aria-hidden="true">
+                    <div class="tech-ring">
+                        <span class="tech-ring-logo">
+                            <img src="LOGO ITC.png" alt="Logo ITC">
+                        </span>
+                    </div>
+
+                    <div class="floating-card float-a">
+                        <span class="floating-card-icon" aria-hidden="true">
+                            <img src="3.png" alt="">
+                        </span>
+                        <div>
+                            <b>Digital Creation</b>
+                            <small>Mengubah ide menjadi karya digital</small>
+                        </div>
+                    </div>
+
+                    <div class="floating-card float-b">
+                        <span class="floating-card-icon" aria-hidden="true">
+                            <img src="4.png" alt="">
+                        </span>
+                        <div>
+                            <b>Team Collaboration</b>
+                            <small>Berkolaborasi dan tumbuh bersama</small>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="date-time-widget" aria-label="Kalender dan jam">
+                    <div class="widget-clock">
+                        <span class="widget-kicker">
+                            <i class="fa-regular fa-clock"></i>
+                            JAM SEKARANG
+                        </span>
+                        <strong id="liveClock">00:00:00</strong>
+                        <small>Waktu Indonesia Barat (WIB)</small>
+                    </div>
+                    <div class="widget-date">
+                        <span class="widget-kicker">
+                            <i class="fa-regular fa-calendar-days"></i>
+                            TANGGAL HARI INI
+                        </span>
+                        <strong id="liveDate">Memuat tanggal...</strong>
+                    </div>
+                    <div class="widget-calendar">
+                        <div class="calendar-title">
+                            <div>
+                                <span class="widget-kicker">KALENDER</span>
+                                <strong id="calendarMonthYear">Bulan Tahun</strong>
+                            </div>
+                            <div class="calendar-nav">
+                                <button type="button" id="calendarPrev" aria-label="Bulan sebelumnya">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                                <button type="button" id="calendarNext" aria-label="Bulan berikutnya">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="calendar-weekdays">
+                            <span>Sen</span>
+                            <span>Sel</span>
+                            <span>Rab</span>
+                            <span>Kam</span>
+                            <span>Jum</span>
+                            <span>Sab</span>
+                            <span>Min</span>
+                        </div>
+                        <div
+                            class="calendar-date-grid"
+                            id="calendarDateGrid"
+                            aria-label="Tanggal dalam bulan">
+                        </div>
+                        <p class="calendar-selected" id="calendarSelected">
+                            Pilih tanggal untuk melihatnya.
+                        </p>
+                    </div>
+                </aside>
+
+            </div>
+
+            <div class="hero-dots">
+                <button type="button" class="active" data-slide-index="0" aria-label="Tampilkan foto 1" aria-current="true"></button>
+                <button type="button" data-slide-index="1" aria-label="Tampilkan foto 2" aria-current="false"></button>
+                <button type="button" data-slide-index="2" aria-label="Tampilkan foto 3" aria-current="false"></button>
+            </div>
+        </section>
+
+        <section class="stats">
+            <div class="container stats-grid">
+
+                <div class="stat">
+                    <span class="stat-icon icon-image-frame">
+                        <img class="icon-image" src="7.png" alt="Ikon anggota aktif">
+                    </span>
+                    <div>
+                        <strong>8</strong>
+                        <small>Anggota aktif</small>
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <span class="stat-icon icon-image-frame">
+                        <img class="icon-image" src="8.png" alt="Ikon program kerja">
+                    </span>
+                    <div>
+                        <strong id="programCount" data-page-content-key="program-count-value">0</strong>
+                        <small data-page-content-key="program-count-label">Program kerja</small>
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <span class="stat-icon icon-image-frame">
+                        <img class="icon-image" src="9.png" alt="Ikon kegiatan ITC">
+                    </span>
+                    <div>
+                        <strong>10+</strong>
+                        <small>Kegiatan</small>
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <span class="stat-icon icon-image-frame">
+                        <img class="icon-image documentation-icon-image" src="10.png" alt="Ikon dokumentasi ITC">
+                    </span>
+                    <div>
+                        <strong>15+</strong>
+                        <small>Dokumentasi</small>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        </div>
+
+        <section class="section section-soft" id="profil">
+            <div class="container profile-layout">
+
+                <div class="section-intro">
+                    <span class="eyebrow">TENTANG KAMI</span>
+
+                    <h2>
+                        <span data-page-content-key="profile-title-first">Profil</span>
+                        <span class="gradient-text">Divisi ITC</span>
+                    </h2>
+
+                    <p>
+                        Information and Technology Center (ITC) merupakan
+                        divisi yang berfokus pada pemanfaatan teknologi dan
+                        penyebaran informasi kegiatan sekolah secara kreatif,
+                        aktual, dan bertanggung jawab.
+                    </p>
+                </div>
+
+                <article class="info-card">
+                    <span class="info-icon icon-image-frame">
+                        <img class="icon-image" src="6.png" alt="Ilustrasi visi ITC">
+                    </span>
+
+                    <h3>Visi</h3>
+
+                    <p>
+                        Menjadi divisi yang kreatif, inovatif, dan
+                        bertanggung jawab dalam memanfaatkan teknologi
+                        untuk mendukung informasi serta dokumentasi
+                        kegiatan sekolah.
+                    </p>
+                </article>
+
+                <article class="info-card">
+                    <span class="info-icon icon-image-frame">
+                        <img class="icon-image" src="5.png" alt="Ilustrasi misi ITC">
+                    </span>
+
+                    <h3>Misi</h3>
+
+                    <p>
+                        Mengembangkan kemampuan digital anggota,
+                        mendokumentasikan kegiatan secara teratur,
+                        dan menyajikan informasi sekolah secara
+                        menarik serta akurat.
+                    </p>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="section" id="program">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">PERENCANAAN &amp; PELAKSANAAN</span>
+
+                        <h2>
+                            <span data-page-content-key="program-heading-first">Program</span>
+                            <span class="gradient-text">Kerja</span>
+                        </h2>
+
+                        <p>
+                            Program untuk mendukung publikasi, dokumentasi,
+                            dan keterampilan digital.
+                        </p>
+                    </div>
+
+                    <div class="filters" id="programFilters">
+                        <button type="button" class="filter-btn active" data-filter="all">
+                            Semua
+                        </button>
+
+                        <button type="button" class="filter-btn" data-filter="selesai">
+                            Selesai
+                        </button>
+
+                        <button type="button" class="filter-btn" data-filter="berlangsung">
+                            Berlangsung
+                        </button>
+
+                        <button type="button" class="filter-btn" data-filter="direncanakan">
+                            Direncanakan
+                        </button>
+                    </div>
+                </div>
+
+                <div class="program-management admin-only">
+                    <div class="program-management-info">
+                        <h3>Kelola Program Kerja</h3>
+                        <p>
+                            Tambahkan program baru, ubah informasi dan foto,
+                            atau hapus program yang tidak diperlukan.
+                        </p>
+                    </div>
+                    <div class="program-management-actions">
+                        <button type="button" class="btn-secondary" id="closeProgramWorkspaceBtn"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Kembali</button>
+                        <button type="button" class="btn-primary" id="addProgramBtn">
+                            <i class="fa-solid fa-plus"></i>
+                            Tambah Program
+                        </button>
+                    </div>
+                </div>
+
+                <p class="program-storage-note admin-only">
+                    Program kerja yang ditambahkan, diubah, atau dihapus akan
+                    tersimpan secara langsung ke database ITC SMAN 1 Balige.
+                </p>
+                <p id="programStatusMessage" class="program-status-message admin-only" role="status" aria-live="polite"></p>
+
+                <form id="programForm" class="program-form admin-only" hidden>
+                    <h3 id="programFormTitle">Tambah Program Kerja</h3>
+
+                    <input type="hidden" id="programEditId">
+
+                    <div class="form-group">
+                        <label for="programTitle">Nama Program</label>
+                        <input
+                            type="text"
+                            id="programTitle"
+                            placeholder="Contoh: Pelatihan Desain Grafis"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="programDescription">Deskripsi Program</label>
+                        <textarea
+                            id="programDescription"
+                            rows="4"
+                            placeholder="Jelaskan tujuan dan kegiatan program..."
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="programStatus">Status Program</label>
+                        <select id="programStatus" required>
+                            <option value="direncanakan">Direncanakan</option>
+                            <option value="berlangsung">Berlangsung</option>
+                            <option value="selesai">Selesai</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="programDate">Tanggal Pelaksanaan</label>
+                        <input type="date" id="programDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="programImage">Foto Program</label>
+                        <input
+                            type="file"
+                            id="programImage"
+                            accept="image/jpeg,image/png,image/webp">
+
+                        <small>
+                            Foto opsional, maksimal 10 MB. Pilih foto baru jika ingin mengganti foto.
+                            Jika sedang mengedit, foto lama tetap digunakan
+                            apabila tidak memilih foto baru.
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="programIcon">Ikon jika tidak ada foto</label>
+                        <div class="program-icon-picker">
+                            <select id="programIcon">
+                                <option value="camera">Kamera</option>
+                                <option value="laptop-code">Laptop / Teknologi</option>
+                                <option value="palette">Desain Grafis</option>
+                                <option value="bullhorn">Publikasi</option>
+                                <option value="calendar-days">Kegiatan</option>
+                                <option value="globe">Web / Internet</option>
+                                <option value="lightbulb">Ide Kreatif</option>
+                                <option value="gear">Teknologi</option>
+                            </select>
+                            <span class="program-icon-preview" aria-hidden="true">
+                                <span id="programIconPreview" class="program-icon-glyph">📷</span>
+                            </span>
+                        </div>
+                        <small>Ikon ini tampil sebagai pengganti foto. Admin dan super admin dapat mengubahnya.</small>
+                    </div>
+
+                    <div class="program-form-actions">
+                        <button type="submit" class="btn-primary" id="saveProgramBtn">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Simpan Program
+                        </button>
+
+                        <button type="button" class="btn-secondary" id="cancelProgramBtn">
+                            Batal
+                        </button>
+                    </div>
+                </form>
+
+                <div class="program-grid" id="programGrid"></div>
+
+                <p id="emptyPrograms" hidden>
+                    Belum ada program kerja yang tersedia.
+                </p>
+
+            </div>
+        </section>
+
+        <section class="section" id="galeri">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">DOKUMENTASI KEGIATAN</span>
+
+                        <h2>
+                            <span data-page-content-key="gallery-heading-first">Galeri</span>
+                            <span class="gradient-text">ITC</span>
+                        </h2>
+
+                        <p>
+                            Dokumentasi kegiatan, kreativitas, dan perjalanan
+                            Information and Technology Center SMA Negeri 1 Balige.
+                        </p>
+                    </div>
+
+                    <div class="filters" id="galleryFilters">
+                        <button type="button" class="filter-btn active" data-filter="all">
+                            Semua
+                        </button>
+
+                        <button type="button" class="filter-btn" data-filter="kegiatan">
+                            Kegiatan
+                        </button>
+
+                        <button type="button" class="filter-btn" data-filter="dokumentasi">
+                            Dokumentasi
+                        </button>
+
+                        <button type="button" class="filter-btn" data-filter="desain">
+                            Desain
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-management admin-only">
+                    <div class="gallery-management-info">
+                        <h3>Kelola Galeri</h3>
+
+                        <p>
+                            Tambahkan dokumentasi baru, ubah informasi foto,
+                            dan hubungkan setiap dokumentasi ke Google Drive.
+                        </p>
+                    </div>
+                    <div class="gallery-management-actions">
+                        <button type="button" class="btn-secondary" id="closeGalleryWorkspaceBtn"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Kembali</button>
+                        <button type="button" class="btn-primary" id="addGalleryBtn">
+                            <i class="fa-solid fa-plus"></i>
+                            Tambah Foto atau Link
+                        </button>
+                    </div>
+                </div>
+
+                <p class="gallery-storage-note admin-only">
+                    Data galeri disimpan di database. Foto atau tautan Google Drive bisa
+                    ditambahkan sendiri-sendiri atau bersamaan.
+                </p>
+                <p id="galleryStatus" class="gallery-status admin-only" role="status" aria-live="polite"></p>
+
+                <form
+                    id="galleryForm"
+                    class="gallery-form admin-only"
+                    hidden>
+
+                    <h3 id="galleryFormTitle">Tambah Galeri</h3>
+
+                    <input type="hidden" id="galleryEditId" name="id">
+
+                    <div class="form-group">
+                        <label for="galleryTitle">Judul Foto</label>
+                        <input
+                            type="text"
+                            id="galleryTitle"
+                            name="title"
+                            placeholder="Contoh: Pelatihan Desain Grafis"
+                            maxlength="150"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="galleryDescription">Deskripsi</label>
+                        <textarea
+                            id="galleryDescription"
+                            name="description"
+                            rows="4"
+                            placeholder="Tuliskan deskripsi dokumentasi..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="galleryCategory">Kategori</label>
+                        <select id="galleryCategory" name="category" required>
+                            <option value="kegiatan">Kegiatan</option>
+                            <option value="dokumentasi">Dokumentasi</option>
+                            <option value="desain">Desain</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="galleryDate">Tanggal Kegiatan</label>
+                        <input type="date" id="galleryDate" name="date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="galleryImage">Pilih Foto (opsional)</label>
+                        <input
+                            type="file"
+                            id="galleryImage"
+                            name="image"
+                            accept="image/jpeg,image/png,image/webp">
+                        <small>
+                            Isi foto, tautan Google Drive, atau keduanya. Maksimal ukuran foto 10 MB.
+                            Saat mengedit, foto lama tetap digunakan jika tidak memilih foto baru.
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="galleryDriveUrl">Tautan Google Drive (opsional)</label>
+                        <input
+                            type="url"
+                            id="galleryDriveUrl"
+                            name="driveUrl"
+                            placeholder="https://drive.google.com/file/d/...">
+                        <small>
+                            Pastikan akses tautan Drive diatur agar dapat dilihat oleh penerima.
+                        </small>
+                    </div>
+
+                    <div class="gallery-form-actions">
+                        <button type="submit" class="btn-primary" id="saveGalleryBtn">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Simpan Galeri
+                        </button>
+
+                        <button type="button" class="btn-secondary" id="cancelGalleryBtn">
+                            Batal
+                        </button>
+                    </div>
+
+                </form>
+
+                <!-- DAFTAR FOTO GALERI -->
+                <div class="gallery-grid" id="galleryGrid">
+                </div>
+
+                <p id="emptyGallery" hidden>
+                    Belum ada dokumentasi galeri yang tersedia.
+                </p>
+
+            </div>
+        </section>
+
+        <section class="section" id="anggota">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">TIM KAMI</span>
+
+                        <h2>
+                            <span data-page-content-key="member-heading-first">Anggota</span>
+                            <span class="gradient-text">ITC</span>
+                        </h2>
+
+                        <p>
+                            Kenali tim yang berkontribusi dalam publikasi,
+                            dokumentasi, dan teknologi.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="member-management admin-only super-admin-only">
+                    <div>
+                        <h3>Kelola Anggota</h3>
+                        <p>Tambah, ubah, atau hapus data anggota ITC.</p>
+                    </div>
+                    <div class="member-management-actions">
+                        <button type="button" class="btn-secondary" id="closeMembersWorkspaceBtn"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Kembali</button>
+                        <button type="button" class="btn-primary" id="addMemberBtn">
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                            Tambah Anggota
+                        </button>
+                    </div>
+                </div>
+                <p class="member-storage-note admin-only super-admin-only">Data anggota tersimpan di database dan dapat dilihat oleh semua pengunjung.</p>
+                <p id="memberStatus" class="member-status admin-only super-admin-only" role="status" aria-live="polite"></p>
+
+                <form id="memberForm" class="member-form admin-only super-admin-only" hidden>
+                    <h3 id="memberFormTitle">Tambah Anggota</h3>
+                    <input type="hidden" id="memberEditId">
+                    <div class="form-group">
+                        <label for="memberName">Nama</label>
+                        <input type="text" id="memberName" maxlength="120" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="memberRole">Jabatan / Divisi</label>
+                        <input type="text" id="memberRole" maxlength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="memberImage">Foto anggota (JPG atau PNG)</label>
+                        <input type="file" id="memberImage" accept=".jpg,.jpeg,.png,image/jpeg,image/png">
+                        <small class="member-image-note">Format JPG atau PNG, maksimal 10 MB. Setelah memilih foto, geser dan atur zoom untuk menentukan bagian yang disimpan.</small>
+                        <img id="memberImagePreview" class="member-image-preview" alt="Pratinjau foto anggota" hidden>
+                        <div class="photo-crop-editor" id="memberCropEditor" hidden>
+                            <p>Geser foto di dalam bingkai untuk memilih bagian yang ingin ditampilkan.</p>
+                            <div class="photo-crop-viewport" id="memberCropViewport" role="group" tabindex="0" aria-label="Geser foto anggota untuk memilih bagian yang ditampilkan"><img id="memberCropImage" alt="" draggable="false"></div>
+                            <label for="memberCropZoom">Perbesar atau perkecil foto</label>
+                            <input type="range" id="memberCropZoom" min="1" max="3" step="0.01" value="1">
+                            <button type="button" class="btn-secondary photo-crop-reset" id="memberCropReset">Atur ulang posisi</button>
+                        </div>
+                    </div>
+                    <div class="member-form-actions">
+                        <button type="submit" class="btn-primary">Simpan Anggota</button>
+                        <button type="button" class="btn-secondary" id="cancelMemberBtn">Batal</button>
+                    </div>
+                </form>
+
+                <div class="member-grid" id="memberGrid">
+
+                    <article class="member-card">
+                        <img
+                            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80"
+                            alt="Ketua">
+                        <h3>Leriston Sinaga S.Kom.</h3>
+                        <span>Pembina</span>
+                    </article>
+
+                    <aticle class="member-card">
+                        <img
+                            src="https://media.istockphoto.com/id/2218333101/id/foto/pria-dewasa-percaya-diri-tersenyum-dalam-pakaian-profesional-dengan-latar-belakang-yang-tenang.jpg?s=2048x2048&w=is&k=20&c=U3ZVeuSP1BnwA74VgpNJ3VCl3So8Vsci49qv0Wwui9c="
+                            alt="Pembina">
+                        <h3>Alfredo E.N. Munthe</h3>
+                        <span>Koordinator</span>
+                    </aticle>
+
+                    <article class="member-card">
+                        <img
+                            src="https://media.istockphoto.com/id/2099403180/id/foto/tertawa-yougn-pengusaha-wanita-berdiri-dengan-tangan-disilangkan-ke-dinding-kantor.jpg?s=2048x2048&w=is&k=20&c=OxXQ_x1uGLsIRkojlhnLYb9ADAFNJFzyxWfx7coqZUg="
+                            alt="Social Manager">
+                        <h3>Hadasa K.U. Sihombing</h3>
+                        <span>Divisi Publikasi</span>
+                    </article>
+
+                    <article class="member-card">
+                        <img
+                            src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80"
+                            alt="Fotografer">
+                        <h3>Ezra R. Panjaitan</h3>
+                        <span>Divisi Dokumentasi</span>
+                    </article>
+
+                    <article class="member-card">
+                        <img
+                            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80"
+                            alt="Editor">
+                        <h3>Nama Anggota</h3>
+                        <span>Divisi Desain</span>
+                    </article>
+
+                    <article class="member-card">
+                        <img
+                            src="https://media.istockphoto.com/id/2177231592/id/foto/wanita-asia-tersenyum-berpose-dengan-tangan-bersilang-melihat-kamera-dengan-latar-belakang-biru.jpg?s=2048x2048&w=is&k=20&c=edIborzLlEIhC57gz8Um1Upt6PhinCt4CYBshAIepSM="
+                            alt="Editor">
+                        <h3>Nama Anggota</h3>
+                        <span>Divisi Desain</span>
+                    </article>
+
+                    <article class="member-card">
+                        <img
+                            src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=400&q=80"
+                            alt="Fotografer">
+                        <h3>Nama Anggota</h3>
+                        <span>Divisi Dokumentasi</span>
+                    </article>
+
+                    <article class="member-card">
+                        <img
+                            src="https://media.istockphoto.com/id/1830126474/id/foto/potret-seorang-pebisnis-yang-duduk-di-kantor.jpg?s=1024x1024&w=is&k=20&c=1wnGsyno2Fuq8NVWZbq6cW1NFn21R8aU2gBwMsZkIiw="
+                            alt="Fotografer">
+                        <h3>Nama Anggota</h3>
+                        <span>Divisi Dokumentasi</span>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="section alumni-section section-soft" id="alumni">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">GENERASI ITC</span>
+                        <h2>Alumni <span class="gradient-text">ITC</span></h2>
+                        <p>Kenali alumni dan generasi yang pernah menjadi bagian dari ITC.</p>
+                    </div>
+                </div>
+
+                <div class="alumni-management admin-only super-admin-only">
+                    <div>
+                        <h3>Kelola Alumni</h3>
+                        <p>Tambah, ubah, atau hapus foto dan informasi generasi alumni.</p>
+                    </div>
+                    <div class="alumni-management-actions">
+                        <button type="button" class="btn-secondary" id="closeAlumniWorkspaceBtn"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Kembali</button>
+                        <button type="button" class="btn-primary" id="addAlumniBtn">
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                            Tambah Alumni
+                        </button>
+                    </div>
+                </div>
+                <p class="alumni-storage-note admin-only super-admin-only">Data alumni disimpan di database itc_smansaba.</p>
+                <p id="alumniStatus" class="alumni-status admin-only super-admin-only" role="status" aria-live="polite"></p>
+
+                <form id="alumniForm" class="alumni-form admin-only super-admin-only" hidden>
+                    <h3 id="alumniFormTitle">Tambah Alumni</h3>
+                    <input type="hidden" id="alumniEditId">
+
+                    <div class="form-group">
+                        <label for="alumniName">Nama alumni</label>
+                        <input type="text" id="alumniName" maxlength="120" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alumniGeneration">Generasi keberapa</label>
+                        <input type="text" id="alumniGeneration" maxlength="80" placeholder="Contoh: Generasi ke-1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alumniPhoto">Foto alumni (JPG atau PNG)</label>
+                        <input type="file" id="alumniPhoto" accept=".jpg,.jpeg,.png,image/jpeg,image/png">
+                        <small id="alumniPhotoNote" class="alumni-photo-note">Foto wajib diisi saat menambah alumni. JPG/PNG maksimal 10 MB; setelah memilih, geser foto dan atur zoom.</small>
+                        <img id="alumniPhotoPreview" class="alumni-photo-preview" alt="Pratinjau foto alumni" hidden>
+                        <div class="photo-crop-editor" id="alumniCropEditor" hidden>
+                            <p>Geser foto di dalam bingkai untuk memilih bagian yang ingin ditampilkan.</p>
+                            <div class="photo-crop-viewport" id="alumniCropViewport" role="group" tabindex="0" aria-label="Geser foto alumni untuk memilih bagian yang ditampilkan"><img id="alumniCropImage" alt="" draggable="false"></div>
+                            <label for="alumniCropZoom">Perbesar atau perkecil foto</label>
+                            <input type="range" id="alumniCropZoom" min="1" max="3" step="0.01" value="1">
+                            <button type="button" class="btn-secondary photo-crop-reset" id="alumniCropReset">Atur ulang posisi</button>
+                        </div>
+                    </div>
+
+                    <div class="alumni-form-actions">
+                        <button type="submit" class="btn-primary" id="saveAlumniBtn">Simpan Alumni</button>
+                        <button type="button" class="btn-secondary" id="cancelAlumniBtn">Batal</button>
+                    </div>
+                </form>
+
+                <div class="alumni-grid" id="alumniGrid"></div>
+                <p id="emptyAlumni" class="empty-alumni" hidden>Belum ada alumni yang ditambahkan.</p>
+            </div>
+        </section>
+
+        <section class="section registration-section section-soft" id="pendaftaran">
+            <div class="container registration-layout">
+
+                <div class="registration-copy">
+                    <span class="eyebrow">BERGABUNG BERSAMA KAMI</span>
+
+                    <h2>
+                        <span data-page-content-key="registration-heading-first">Kembangkan Potensimu di</span>
+                        <span class="gradient-text">ITC</span>
+                    </h2>
+
+                    <p>
+                        Belajar teknologi, mengasah kreativitas, dan
+                        berkontribusi untuk penyebaran informasi serta
+                        dokumentasi kegiatan sekolah.
+                    </p>
+
+                    <ul>
+                        <li>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span data-page-content-key="registration-benefit-1">Belajar keterampilan digital</span>
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span data-page-content-key="registration-benefit-2">Berkolaborasi dalam proyek kreatif</span>
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span data-page-content-key="registration-benefit-3">Mendukung publikasi sekolah</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <form class="registration-form" id="registrationForm">
+                    <h3>Formulir Pendaftaran Anggota Baru</h3>
+                    <p>Isi data berikut dengan benar.</p>
+
+                    <p
+                        id="registrationMessage"
+                        class="registration-message"
+                        role="status"
+                        aria-live="polite">
+                    </p>
+
+                    <div class="form-grid">
+
+                        <label>
+                            Nama Lengkap 
+                            <input
+                                name="name"
+                                required
+                                maxlength="100"
+                                placeholder="Nama lengkap">
+                        </label>
+
+                        <label>
+                            Kelas 
+                            <input
+                                type="text"
+                                name="class_name"
+                                required
+                                maxlength="30"
+                                placeholder="Contoh: X-A">
+                        </label>
+
+                        <label>
+                            Nomor Telepon
+                            <input
+                                name="phone"
+                                type="tel"
+                                inputmode="tel"
+                                autocomplete="tel"
+                                pattern="[+0-9 ()-]{8,20}"
+                                required
+                                maxlength="20"
+                                placeholder="Contoh: 081234567890">
+                        </label>
+
+                        <label>
+                            Bidang minat 
+                            <select name="interest" required>
+                                <option value="">Pilih bidang</option>
+                                <option value="Desain">Desain</option>
+                                <option value="Fotografi/Videografi">Fotografi/Videografi</option>
+                                <option value="Publikasi/Social Manager">Publikasi/Social Manager</option>
+                            </select>
+                        </label>
+
+                        <label class="full-field">
+                            Alasan ingin bergabung
+                            <textarea
+                                name="motivation"
+                                required
+                                maxlength="1000"
+                                rows="4"
+                                placeholder="Ceritakan alasan Anda..."></textarea>
+                        </label>
+                    </div>
+
+                    <button class="btn btn-primary submit-btn" type="submit">
+                        Kirim Pendaftaran
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+
+                <section class="registration-admin admin-only" id="registrationAdminPanel" aria-labelledby="registrationAdminTitle">
+                    <div class="registration-admin-heading">
+                        <div>
+                            <h3 id="registrationAdminTitle">Daftar Pendaftar</h3>
+                            <p>Data pendaftaran anggota yang masuk ke website.</p>
+                        </div>
+                        <button type="button" class="btn-secondary" id="refreshRegistrationsBtn">
+                            <i class="fa-solid fa-rotate" aria-hidden="true"></i>
+                            Muat ulang
+                        </button>
+                    </div>
+                    <p id="registrationsAdminStatus" class="registrations-admin-status" role="status" aria-live="polite"></p>
+                    <div class="registrations-table-wrap">
+                        <table class="registrations-table">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Kelas</th>
+                                    <th>Nomor Telepon</th>
+                                    <th>Bidang minat</th>
+                                    <th>Alasan bergabung</th>
+                                    <th>Tanggal daftar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="registrationsTableBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <a class="brand" href="#home">
+                <span class="brand-icon">
+                    <img src="LOGO ITC.png" alt="ITC">
+                </span>
+                <span>
+                    <strong>ITC</strong>
+                    <small>SMA Negeri 1 Balige</small>
+                </span>
+            </a>
+            <p>
+                © <span id="year"></span>
+                Alfredo Erlangga Nathanael Munthe
+            </p>
+            <p>Semua hak dilindungi</p>
+            <div class="footer-social">
+                <a href="#galeri" aria-label="Galeri">
+                    <i class="fa-regular fa-images"></i>
+                </a>
+                <a href="#pendaftaran" aria-label="Email pendaftaran">
+                    <i class="fa-regular fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <div
+        class="modal"
+        id="detailModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle">
+        <div class="modal-panel">
+            <button
+                type="button"
+                class="modal-close"
+                id="modalClose"
+                aria-label="Tutup">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span class="eyebrow">DETAIL PROGRAM</span>
+            <h2 id="modalTitle">Program kerja</h2>
+            <p id="modalDescription"></p>
+            <button class="btn btn-primary" id="modalOk">
+                Mengerti
+            </button>
+        </div>
+    </div>
+
+    <div class="modal" id="adminLoginModal" role="dialog" aria-modal="true" aria-labelledby="adminLoginTitle">
+        <div class="modal-panel admin-login-panel">
+            <button type="button" class="modal-close" id="adminLoginClose" aria-label="Tutup login">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+            <span class="eyebrow">AREA PENGELOLA</span>
+            <h2 id="adminLoginTitle">Login Admin ITC</h2>
+            <p>Pengunjung dapat melihat halaman tanpa login. Masuk sebagai admin untuk mengelola konten.</p>
+            <form
+                id="adminLoginForm"
+                data-login-endpoint="auth/login.php"
+                data-logout-endpoint="auth/logout.php"
+                data-check-endpoint="auth/check.php"
+                data-members-endpoint="api/members.php"
+                data-alumni-endpoint="api/alumni.php"
+                data-programs-endpoint="api/programs.php"
+                data-gallery-endpoint="api/galleries.php"
+                data-registrations-endpoint="api/registrations.php"
+                data-site-content-endpoint="api/site_content.php"
+                data-home-background-endpoint="api/home_backgrounds.php"
+                data-admins-endpoint="api/admins.php"
+                data-system-status-endpoint="api/system_status.php"
+                data-profile-endpoint="api/admin_profile.php"
+                    >
+                <div class="form-group">
+                <label for="adminUsername">Email administrator</label>
+                <input
+                    type="email"
+                    id="adminUsername"
+                    autocomplete="username"
+                    required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="adminPassword">Kata sandi</label>
+                    <input
+                        type="password"
+                        id="adminPassword"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <p class="admin-login-message" id="adminLoginMessage" role="alert"></p>
+
+                <button type="submit" class="btn-primary">
+                    Masuk sebagai admin
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div
+        class="lightbox"
+        id="lightbox"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Pratinjau foto">
+
+        <button
+            type="button"
+            id="lightboxClose"
+            aria-label="Tutup foto">
+
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+    </div>
+
+    <div
+        class="toast"
+        id="toast"
+        role="status"
+        aria-live="polite">
+    </div>
+
+</body>
+</html>
